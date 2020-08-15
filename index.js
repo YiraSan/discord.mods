@@ -1,5 +1,10 @@
 var request = require('sync-request')
 
+// LIB IMPORT
+
+var Return = require('./lib/Return')
+var errorReader = require('./lib/errorReader')
+
 class Action {
 
     constructor (server, bot, tools, key) {
@@ -33,12 +38,12 @@ class Action {
                     'auth': this.key
                 }
               }).getBody());
-            this.tools.errorReader(response.code, response.value)
+            errorReader(response.code, response.value)
+            return new Return(false, this);
         } catch (error) {
-            this.tools.errorReader(0)
+            errorReader(0, error)
+            return new Return(true, this, error);
         }
-
-        return;
 
     }
 
@@ -67,12 +72,12 @@ class Action {
                     'auth': this.key
                 }
             }).getBody());
-            this.tools.errorReader(response.code, response.value)
+            errorReader(response.code, response.value)
+            return new Return(false, this);
         } catch (error) {
-            this.tools.errorReader(0)
+            errorReader(0, error)
+            return new Return(true, this, error);
         }
-
-        return;
 
     }
 
@@ -87,27 +92,26 @@ class Tools {
         this.key = key
     }
 
-    errorReader(error, api) {
+    custom(req={}) {
 
-        if (error == 0) {
-            console.log(`[DiscordMods] Connexion Impossible avec l'api (ApiResponse: ${api}) [Code: ${error}]`)
-        } else if (error == 4000) {
-            console.log(`[DiscordMods] Une information est manquante dans votre demande (ApiResponse: ${api}) [Code: ${error}]`)
-        } else if (error == 4001) {
-            console.log(`[DiscordMods] L'utilisateur n'est pas connecté (ApiResponse: ${api}) [Code: ${error}]`)
-        } else if (error == 3000) {
-            console.log(`[DiscordMods] L'api à refusé votre demande (ApiResponse: ${api}) [Code: ${error}]`)
-        } else if (error == 3002) {
-            console.log(`[DiscordMods] L'api à retourner que la requête n'existait pas (ApiResponse: ${api}) [Code: ${error}]`)
-        } else if (error == 200) {
-            // ITS OK
-        } else if (error == 201) {
-            // ITS OK
-        } else {
-            console.log(`[DiscordMods] Une erreur inconnu c'est produite (ApiResponse: ${api}) [Code: ${error}]`)
+        if(!view || !user) return console.log("[DiscordMods] (on create toast) Euhm... Maybe indicate all the fields")
+
+        if(!title) { title = "You did not configure me" }
+        if(!timeout) { timeout = 3000 }
+
+        try {
+            var response = JSON.parse(request('POST', this.server+`/api?r=create`, {
+                json: req,
+                headers: {
+                    'auth': this.key
+                }
+            }).getBody());
+            errorReader(response.code, response.value)
+            return new Return(false, this);
+        } catch (error) {
+            errorReader(0, error)
+            return new Return(true, this, error);
         }
-
-        return;
 
     }
 
@@ -118,11 +122,20 @@ class Tools {
         var response = ""
 
         try {
-            var body = request("GET", this.server+`/api?r=getstatus&user=${userID}&auth=${this.key}&creator=${this.id}`).getBody();
+            var body = request("POST", this.server+`/api?r=getstatus&v=2`, {
+                json: {
+                    user: userID,
+                    creator: this.id
+                },
+                headers: {
+                    'auth': this.key
+                } 
+            }).getBody();
             response = JSON.parse(body)
-            this.errorReader(response.code)
+            errorReader(response.code)
         } catch (error) {
-            this.errorReader(0, error)
+            errorReader(0, error)
+            return new Return(true, this, error);
         }
 
         if (response.status == false) {
@@ -157,6 +170,8 @@ module.exports = class DiscordMods {
 
     login(key) {
         this.key = key;
+
+        return new Return();
     }
 
 }
