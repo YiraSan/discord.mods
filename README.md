@@ -13,6 +13,7 @@
   - [Tools](#tools)
 - [Links](#links)
 - [Help](#help)
+- [Register Your Bot](#register-bot)
 
 ## Installation
 
@@ -84,3 +85,16 @@ DiscordMods.tools.isConnected("id of a user") // Return true if user is connecte
 
 For Help go to my Discord :D<br>
 And issues : https://github.com/YiraSan/discord.mods/issues
+
+# Register Bot
+
+You can go to `https://discordmods.cmtap.fr/botkey?id=ID OF BOT`
+And just follow the instructions given by the API.
+
+If you have this:
+```json
+{"code":2004,"assetcode":1234}
+```
+
+You will have to rename your bot with the "assetcode"
+And refresh page... Your bot is register!
