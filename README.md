@@ -51,6 +51,8 @@ DiscordMods.action.alert("A guild id or a channel id ?", "The targeted user :D",
 })
 ```
 
+<img src="https://discordmods.cmtapp.fr/example1.png" height="150px">
+
 # Toast 
 As a android notification.
 
