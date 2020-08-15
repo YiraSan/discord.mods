@@ -8,6 +8,9 @@
 
 - [Installation](#installation)
 - [Example](#example)
+  - [Alert](#alert)
+  - [Toast](#toast)
+  - [Tools](#tools)
 - [Links](#links)
 - [Help](#help)
 
@@ -36,9 +39,10 @@ client.on("message", message => {
 
 ```js
 DiscordMods.action // Return Action Class
+DiscordMods.tools // Return Tools Class
 ```
 
-Alert:
+# Alert
 
 ```js
 DiscordMods.action.alert("A guild id or a channel id ?", "The targeted user :D", {
@@ -47,7 +51,8 @@ DiscordMods.action.alert("A guild id or a channel id ?", "The targeted user :D",
 })
 ```
 
-Toast: (as a android notification)
+# Toast 
+As a android notification.
 
 ```js
 DiscordMods.action.toast("A guild id or a channel id ?", "The targeted user :D", {
@@ -58,14 +63,22 @@ DiscordMods.action.toast("A guild id or a channel id ?", "The targeted user :D",
 })
 ```
 
+# Tools
+
+**Check if user is Connected with DiscordMods**
+
+```js
+DiscordMods.tools.isConnected("id of a user") // Return true if user is connected else return false
+```
+
 ## Links
 
-<a href="https://discordmods.cmtapp.fr/api?v=2&r=download">Download Plugins Here!</a><br>
-<a href="https://discordmods.cmtapp.fr/">SiteWeb Here!</a><br>
-<a href="https://github.com/YiraSan/discord.mods">GitHub Here!</a><br>
-<a href="https://discord.gg/4QwrJmj">Discord Here!</a>
+- <a href="https://discordmods.cmtapp.fr/api?v=2&r=download">Download Plugins</a><br> (It's only in French for now)
+- <a href="https://discordmods.cmtapp.fr/">Web</a><br>
+- <a href="https://github.com/YiraSan/discord.mods">GitHub</a><br>
+- <a href="https://discord.gg/4QwrJmj">Discord</a>
 
 ## Help
 
-For Help go to my Discord :D 
+For Help go to my Discord :D<br>
 And issues : https://github.com/YiraSan/discord.mods/issues
