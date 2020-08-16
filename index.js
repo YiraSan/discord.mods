@@ -23,7 +23,7 @@ class Action {
         if(!subtitle) { subtitle = "You did not configure me" }
 
         try {
-            var response = JSON.parse(request('POST', this.server+`/api?r=create`, {
+            var response = JSON.parse(request('POST', this.server+`/api?r=create&v=2`, {
                 json: {
                     user: user.id,
                     channel: view.id,
@@ -41,7 +41,7 @@ class Action {
             errorReader(response.code, response.value)
             return new Return(false, this);
         } catch (error) {
-            errorReader(0, error)
+            errorReader(null, error)
             return new Return(true, this, error);
         }
 
@@ -49,13 +49,16 @@ class Action {
 
     toast(view, user, {title, type, icon, timeout}) {
 
-        if(!view || !user) return console.log("[DiscordMods] (on create toast) Euhm... Maybe indicate all the fields")
+        if (!view || !user) return console.log("[DiscordMods] (on create toast) Euhm... Maybe indicate all the fields")
 
-        if(!title) { title = "You did not configure me" }
-        if(!timeout) { timeout = 3000 }
+        if (!title) { title = "You did not configure me" }
+        if (!timeout) { timeout = 3000 }
+        if (!type) { type = "danger" }
+        if (!icon) { icon = false }
+        if (typeof icon != "boolean") { icon = false }
 
         try {
-            var response = JSON.parse(request('POST', this.server+`/api?r=create`, {
+            var response = JSON.parse(request('POST', this.server+`/api?r=create&v=2`, {
                 json: {
                     user: user.id,
                     channel: view.id,
@@ -72,10 +75,61 @@ class Action {
                     'auth': this.key
                 }
             }).getBody());
+            errorReader(response.code, response)
+            return new Return(false, this);
+        } catch (error) {
+            errorReader(null, error)
+            return new Return(true, this, error);
+        }
+
+    }
+
+    inputHtml(view, user, {title, html}) {
+
+        if (!view || !user) return console.log("[DiscordMods] (on create html) Euhm... Maybe indicate all the fields")
+
+        if (!html) { html = "You did not configure me" }
+
+        var cr;
+
+        if (!title) {
+
+            cr = {
+                "user": user.id,
+                "channel": view.id,
+                "type": 'html',
+                "creator": this.id,
+                "params": {
+                    "html": html
+                }
+            }
+
+        } else {
+
+            cr = {
+                "user": user.id,
+                "channel": view.id,
+                "type": 'html',
+                "creator": this.id,
+                "params": {
+                    "title": title,
+                    "html": html
+                }
+            }
+
+        }
+
+        try {
+            var response = JSON.parse(request('POST', this.server+`/api?r=create&v=2`, {
+                json: cr,
+                headers: {
+                    'auth': this.key
+                }
+            }).getBody());
             errorReader(response.code, response.value)
             return new Return(false, this);
         } catch (error) {
-            errorReader(0, error)
+            errorReader(null, error)
             return new Return(true, this, error);
         }
 
@@ -109,10 +163,34 @@ class Tools {
             errorReader(response.code, response.value)
             return new Return(false, this);
         } catch (error) {
-            errorReader(0, error)
+            errorReader(null, error)
             return new Return(true, this, error);
         }
 
+    }
+
+    createSession() {
+
+        return console.log("[DiscordMods] TODO FUNCTION") // Return ID of session
+
+    }
+
+    awaitReply(reply_id, then=function(replyContent){}) {
+
+        return console.log("[DiscordMods] TODO FUNCTION")
+
+    }
+
+    escapeHtml(text) {
+        var map = {
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&#039;'
+        };
+        
+        return text.replace(/[&<>"']/g, function(m) { return map[m]; });
     }
 
     isConnected(userID) {
@@ -134,7 +212,7 @@ class Tools {
             response = JSON.parse(body)
             errorReader(response.code)
         } catch (error) {
-            errorReader(0, error)
+            errorReader(null, error)
             return new Return(true, this, error);
         }
 

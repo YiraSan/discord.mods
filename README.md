@@ -1,28 +1,29 @@
 <div align="center">
+  <img src="https://discordmods.cmtapp.fr/discordmods.jpg">
   <a href="https://www.npmjs.com/package/discord.mods"><img src="https://img.shields.io/npm/v/discord.mods.svg?maxAge=3600" alt="NPM version" /></a>  
     <a href="https://www.npmjs.com/package/discord.mods"><img src="https://img.shields.io/npm/dt/discord.mpds.svg?maxAge=3600" alt="NPM downloads" /></a><br>
   <a href="https://nodei.co/npm/discord.mods/"><img src="https://nodei.co/npm/discord.mods.png?downloads=true&stars=true" alt="npm installnfo" /></a>
 </div>
 
-## Contents
+# Contents
 
 - [Installation](#installation)
-- [Example](#example)
-  - [Alert](#alert)
-  - [Toast](#toast)
+- [Usage](#usage)
+  - [Authentification](#authentification)
+  - [Action](#action)
   - [Tools](#tools)
 - [Links](#links)
 - [Help](#help)
 - [Register Your Bot](#register-bot)
 
-## Installation
+# Installation
 
-Execute `npm i discord.mods`, and then install "BetterDiscord", and the betterdiscord plugin for discord.mods [Links](#links).
+Execute `npm i discord.mods`, and then install "BetterDiscord", and the betterdiscord plugin for discord.mods [Links](#links)<br>
 It's Done!
 
-## Example
+# Usage
 
-**Authentification**
+## Authentification
 
 ```js
 var Discord = require('discord.js')
@@ -42,8 +43,9 @@ client.on("message", message => {
 DiscordMods.action // Return Action Class
 DiscordMods.tools // Return Tools Class
 ```
+## Action
 
-# Alert
+### Alert
 
 ```js
 DiscordMods.action.alert("A guild id or a channel id ?", "The targeted user :D", {
@@ -54,7 +56,7 @@ DiscordMods.action.alert("A guild id or a channel id ?", "The targeted user :D",
 
 <img src="https://discordmods.cmtapp.fr/example1.png" height="150px">
 
-# Toast 
+### Toast 
 As a android notification.
 
 ```js
@@ -66,29 +68,47 @@ DiscordMods.action.toast("A guild id or a channel id ?", "The targeted user :D",
 })
 ```
 
-# Tools
+### inputHtml
 
+```js
+DiscordMods.action.inputHtml(message.guild, message.mentions.members.first().user, {
+  title: "i am a optionnal title :D", // title optionnal
+  html: `html? OK... <img src="i dont know">`
+})
+```
+
+## Tools
+
+### isConnected
 **Check if user is Connected with DiscordMods**
 
 ```js
 DiscordMods.tools.isConnected("id of a user") // Return true if user is connected else return false
 ```
 
-## Links
+### espaceHtml
+
+```js
+DiscordMods.tools.escapeHtml("<img src='a super image'>") // Instead of displaying the image it displays : "<img src='a super image'>"
+```
+
+### request
+
+# Links
 
 - <a href="https://discordmods.cmtapp.fr/api?v=2&r=download">Download Plugins</a><br> (It's only in French for now)
 - <a href="https://discordmods.cmtapp.fr/">Web</a><br>
 - <a href="https://github.com/YiraSan/discord.mods">GitHub</a><br>
 - <a href="https://discord.gg/4QwrJmj">Discord</a>
 
-## Help
+# Help
 
-For Help go to my Discord :D<br>
+For Help go to my Discord :D ... [Links](#links)<br> 
 And issues : https://github.com/YiraSan/discord.mods/issues
 
 # Register Bot
 
-You can go to `https://discordmods.cmtap.fr/botkey?id=ID OF BOT`
+You can go to `https://discordmods.cmtapp.fr/botkey?id=ID OF BOT`
 And just follow the instructions given by the API.
 
 If you have this:

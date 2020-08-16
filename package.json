@@ -1,6 +1,6 @@
 {
   "name": "discord.mods",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "There is Forge for Minecraft and there is DiscordMods for Discord",
   "main": "index.js",
   "dependencies": {
@@ -17,7 +17,7 @@
   "bugs": {
     "url": "https://github.com/YiraSan/discord.mods/issues"
   },
-  "homepage": "https://github.com/YiraSan/discord.mods#readme",
+  "homepage": "https://discordmods.cmtapp.fr/",
   "keywords": [
     "discord",
     "mods",
