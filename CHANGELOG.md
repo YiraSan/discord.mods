@@ -22,12 +22,12 @@ DiscordMods.action.inputHtml({
 
 ```js
 DiscordMods.tools.request({
-    user: user.id,
-    channel: view.id,
-    type: 'alert',
+    user: "you or me ? (id)",
+    channel: "The channel or guild?",
+    type: 'alert', // "toast"/"alert"/"html"
     params: {
-        title: title,
-        subtitle: subtitle
+        title: "Your Super Title!",
+        subtitle: "The content of alert?"
     }  
 })
 ```

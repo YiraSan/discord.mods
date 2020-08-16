@@ -18,10 +18,11 @@
 
 # Installation
 
-Execute `npm i discord.mods`, and then install "BetterDiscord", and the betterdiscord plugin for discord.mods [Links](#links)<br>
-It's Done!
+Execute `npm i discord.mods`, and then install "BetterDiscord"...<br> And betterdiscord plugin for discord.mods ... [Links](#links)<br>
+It's Ready!
 
 # Usage
+How to use ? It's a question.<br>
 
 ## Authentification
 
@@ -80,19 +81,33 @@ DiscordMods.action.inputHtml(message.guild, message.mentions.members.first().use
 ## Tools
 
 ### isConnected
-**Check if user is Connected with DiscordMods**
+Check if user is Connected with DiscordMods
 
 ```js
 DiscordMods.tools.isConnected("id of a user") // Return true if user is connected else return false
 ```
 
-### espaceHtml
+### escapeHtml
+
 
 ```js
 DiscordMods.tools.escapeHtml("<img src='a super image'>") // Instead of displaying the image it displays : "<img src='a super image'>"
 ```
 
 ### request
+Custom Request
+
+```js
+DiscordMods.tools.request({
+    user: "you or me ? (id)",
+    channel: "The channel or guild?",
+    type: 'alert', // "toast"/"alert"/"html"
+    params: {
+        title: "Your Super Title!",
+        subtitle: "The content of alert?"
+    }  
+})
+```
 
 # Links
 
