@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://discordmods.cmtapp.fr/discordmods.jpg">
+  <img src="https://discordmods.cmtapp.fr/discordmods.jpg" height="300px"><br>
   <a href="https://www.npmjs.com/package/discord.mods"><img src="https://img.shields.io/npm/v/discord.mods.svg?maxAge=3600" alt="NPM version" /></a>  
     <a href="https://www.npmjs.com/package/discord.mods"><img src="https://img.shields.io/npm/dt/discord.mpds.svg?maxAge=3600" alt="NPM downloads" /></a><br>
   <a href="https://nodei.co/npm/discord.mods/"><img src="https://nodei.co/npm/discord.mods.png?downloads=true&stars=true" alt="npm installnfo" /></a>
