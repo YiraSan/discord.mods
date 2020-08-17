@@ -49,7 +49,7 @@ DiscordMods.tools // Return Tools Class
 ### Alert
 
 ```js
-DiscordMods.action.alert("A guild id or a channel id ?", "The targeted user :D", {
+DiscordMods.action.alert("guildID/channelID", "user ID", {
   title: "Your Super title",
   subtitle: "The super content :D"
 })
@@ -61,9 +61,9 @@ DiscordMods.action.alert("A guild id or a channel id ?", "The targeted user :D",
 As a android notification.
 
 ```js
-DiscordMods.action.toast("A guild id or a channel id ?", "The targeted user :D", {
+DiscordMods.action.toast("guildID/channelID", "user ID", {
   title: "A ULTRA SUPER MEGA GOD TITLE OMG... and yes... i'm fine",
-  type: "danger", // "danger", "success", "warn"
+  type: "danger", // "danger", "success", "warn", "info"
   icon: false, // Active icon in toast ?
   timeout: 5000 // How many time alive ?
 })
@@ -72,11 +72,29 @@ DiscordMods.action.toast("A guild id or a channel id ?", "The targeted user :D",
 ### inputHtml
 
 ```js
-DiscordMods.action.inputHtml(message.guild, message.mentions.members.first().user, {
-  title: "i am a optionnal title :D", // title optionnal
+DiscordMods.action.inputHtml("guildID/channelID", "user ID", {
   html: `html? OK... <img src="i dont know">`
 })
 ```
+
+And if you will change size of window... Color Background of close button... Text of close button...<br>
+MaxSize is 2 thirds of the discord window pixel value (separately for width and height)<br>
+MinSize is 0px<br>
+A fix size is not allowed
+
+```js
+DiscordMods.action.inputHtml("guildID/channelID", "user ID", {
+  html: `<img src="https://discordmods.cmtapp.fr/example2.png" height="150px">`,
+  minWidth: 400, // you can change "min" to "max"
+  minHeight: 200,
+  text: "Don't Touch Me",
+  color: "magenta"
+})
+```
+
+<img src="https://discordmods.cmtapp.fr/example3.png" height="150px">
+
+ExampleCeption D:
 
 ## Tools
 
@@ -99,8 +117,8 @@ Custom Request
 
 ```js
 DiscordMods.tools.request({
-    user: "you or me ? (id)",
-    channel: "The channel or guild?",
+    user: "user ID",
+    channel: "guildID/channelID",
     type: 'alert', // "toast"/"alert"/"html"
     params: {
         title: "Your Super Title!",

@@ -1,3 +1,22 @@
+# 0.3.2
+
+- title in inputHtml are delete
+- Change color of the "inputHtml" button (with "color" parameters)
+- Change text of the "inputHtml" button (with "text" parameters)
+- Change size of the "inputHtml" window (show example, size in pixel)
+
+```js
+DiscordMods.action.inputHtml({
+    html: "HTML HERE!",
+    color: "yellow", // WoW! A yellow button! (#?????? it's valid) 
+    text: "Don't Touch Me",
+    maxWidth: 800, // Max is 2 thirds of the discord window pixel value (separately for width and height)
+    maxHeight: 800,
+    minWidth: 100,
+    minWidth: 100
+})
+```
+
 # 0.3.1
 
 - API v2 it's here! (upgrade speed, fluidity & multi-support)

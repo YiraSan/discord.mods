@@ -84,7 +84,7 @@ class Action {
 
     }
 
-    inputHtml(view, user, {title, html}) {
+    inputHtml(view, user, {html, maxWidth, minWidth, maxHeight, minHeight, color, text}) {
 
         if (!view || !user) return console.log("[DiscordMods] (on create html) Euhm... Maybe indicate all the fields")
 
@@ -92,32 +92,29 @@ class Action {
 
         var cr;
 
-        if (!title) {
-
-            cr = {
-                "user": user.id,
-                "channel": view.id,
-                "type": 'html',
-                "creator": this.id,
-                "params": {
-                    "html": html
-                }
+        cr = {
+            "user": user.id,
+            "channel": view.id,
+            "type": 'html',
+            "creator": this.id,
+            "params": {
+                "html": html
             }
-
-        } else {
-
-            cr = {
-                "user": user.id,
-                "channel": view.id,
-                "type": 'html',
-                "creator": this.id,
-                "params": {
-                    "title": title,
-                    "html": html
-                }
-            }
-
         }
+
+        if (color) {
+            cr.params.color = color;
+        }
+
+        if (text) {
+            cr.params.text = text;
+        }
+
+        cr.params.size = {}
+        if (maxHeight) { cr.params.size.maxHeight = maxHeight }
+        if (minHeight) { cr.params.size.minHeight = minHeight }
+        if (maxWidth) { cr.params.size.maxWidth = maxWidth }
+        if (minWidth) { cr.params.size.minWidth = minWidth }
 
         try {
             var response = JSON.parse(request('POST', this.server+`/api?r=create&v=2`, {
