@@ -2,7 +2,6 @@
   <img src="https://discordmods.cmtapp.fr/discordmods.jpg" height="300px"><br>
   <a href="https://www.npmjs.com/package/discord.mods"><img src="https://img.shields.io/npm/v/discord.mods?style=for-the-badge" alt="Version" /></a>  
   <a href="https://www.npmjs.com/package/discord.mods"><img src="https://img.shields.io/npm/dm/discord.mods?style=for-the-badge" alt="Downloads" /></a><br>
-  <a href="https://www.npmjs.com/package/discord.mods"><img src="https://img.shields.io/snyk/vulnerabilities/npm/discord.mods?style=for-the-badge" alt="npm vulnerabilities"></a><br>
   <a href="https://www.npmjs.com/package/discord.mods"><img src="https://nodei.co/npm/discord.mods.png?downloads=true&stars=true" alt="npm installnfo" /></a>
 </div>
 
