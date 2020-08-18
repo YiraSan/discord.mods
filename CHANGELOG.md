@@ -1,9 +1,17 @@
+# 0.3.3
+
+- For includes markdown in inputHtml use the tools function : "markdown"
+```js
+DiscordMods.tools.markdown("**test**") // Return the markdowned text!
+```
+
 # 0.3.2
 
 - title in inputHtml are delete
 - Change color of the "inputHtml" button (with "color" parameters)
 - Change text of the "inputHtml" button (with "text" parameters)
 - Change size of the "inputHtml" window (show example, size in pixel)
+- HotFix on action displayer
 
 ```js
 DiscordMods.action.inputHtml({

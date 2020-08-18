@@ -1,8 +1,9 @@
 <div align="center">
   <img src="https://discordmods.cmtapp.fr/discordmods.jpg" height="300px"><br>
-  <a href="https://www.npmjs.com/package/discord.mods"><img src="https://img.shields.io/npm/v/discord.mods.svg?maxAge=3600" alt="NPM version" /></a>  
-    <a href="https://www.npmjs.com/package/discord.mods"><img src="https://img.shields.io/npm/dt/discord.mpds.svg?maxAge=3600" alt="NPM downloads" /></a><br>
-  <a href="https://nodei.co/npm/discord.mods/"><img src="https://nodei.co/npm/discord.mods.png?downloads=true&stars=true" alt="npm installnfo" /></a>
+  <a href="https://www.npmjs.com/package/discord.mods"><img src="https://img.shields.io/npm/v/discord.mods?style=for-the-badge" alt="Version" /></a>  
+  <a href="https://www.npmjs.com/package/discord.mods"><img src="https://img.shields.io/npm/dm/discord.mods?style=for-the-badge" alt="Downloads" /></a><br>
+  <a href="https://www.npmjs.com/package/discord.mods"><img src="https://img.shields.io/snyk/vulnerabilities/npm/discord.mods?style=for-the-badge" alt="npm vulnerabilities"></a><br>
+  <a href="https://www.npmjs.com/package/discord.mods"><img src="https://nodei.co/npm/discord.mods.png?downloads=true&stars=true" alt="npm installnfo" /></a>
 </div>
 
 # Contents
@@ -107,9 +108,15 @@ DiscordMods.tools.isConnected("id of a user") // Return true if user is connecte
 
 ### escapeHtml
 
-
 ```js
 DiscordMods.tools.escapeHtml("<img src='a super image'>") // Instead of displaying the image it displays : "<img src='a super image'>"
+```
+
+### markdown
+Only for inputHtml
+
+```js
+DiscordMods.tools.markdown("**test**") // Return the markdowned text!
 ```
 
 ### request

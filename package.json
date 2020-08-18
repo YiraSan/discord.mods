@@ -1,6 +1,6 @@
 {
   "name": "discord.mods",
-  "version": "0.3.2",
+  "version": "0.3.20",
   "description": "There is Forge for Minecraft and there is DiscordMods for Discord",
   "main": "index.js",
   "dependencies": {

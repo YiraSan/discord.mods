@@ -5,6 +5,26 @@ var request = require('sync-request')
 var Return = require('./lib/Return')
 var errorReader = require('./lib/errorReader')
 
+function pfs(ident="**", dif="strong", c="") {
+
+    var c2 = c.split(ident)
+
+    if (c2.length < 3) return c;
+
+    var final = "";
+
+    for (let i = 1; i < c2.length; i+=2) {
+
+        final += c2[i-1]
+        final += `<${dif}>${c2[i]}</${dif}>`
+        final += c2[i+1]
+
+    }
+
+    return final;
+
+}
+
 class Action {
 
     constructor (server, bot, tools, key) {
@@ -188,6 +208,15 @@ class Tools {
         };
         
         return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+    }
+
+    markdown(content) {
+        var content = pfs("**", "strong", content)
+        var content = pfs("*", "em", content)
+        var content = pfs("__", "u", content)
+        var content = pfs("_", "em", content)
+        var content = pfs("~~", "s", content)
+        return content;
     }
 
     isConnected(userID) {
