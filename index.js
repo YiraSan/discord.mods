@@ -1,9 +1,6 @@
-var request = require('sync-request')
-
 // LIB IMPORT
 
 var Return = require('./lib/Return')
-var errorReader = require('./lib/errorReader')
 
 function pfs(ident="**", dif="strong", c="") {
 
@@ -27,128 +24,65 @@ function pfs(ident="**", dif="strong", c="") {
 
 class Action {
 
-    constructor (server, bot, tools, key) {
-        this.bot = bot
-        this.id = bot.user.id
-        this.server = server
-        this.tools = tools
-        this.key = key
+    constructor (socket) {
+        this.socket = socket;
     }
-    
-    alert(view, user, {title, subtitle}) {
 
-        if(!view || !user) return console.log("[DiscordMods] (on create alert) Euhm... Maybe indicate all the fields")
-
-        if(!title) { title = "Example" }
-        if(!subtitle) { subtitle = "You did not configure me" }
-
-        try {
-            var response = JSON.parse(request('POST', this.server+`/api?r=create&v=2`, {
-                json: {
-                    user: user.id,
-                    channel: view.id,
-                    type: 'alert',
-                    creator: this.id,
-                    params: {
-                        title: title,
-                        subtitle: subtitle
-                    }
-                },
-                headers: {
-                    'auth': this.key
-                }
-              }).getBody());
-            errorReader(response.code, response.value)
-            return new Return(false, this);
-        } catch (error) {
-            errorReader(null, error)
-            return new Return(true, this, error);
+    toast(to, user, object={
+        title: "Work!",
+        icon: true,
+        type: "success",
+        timeout: 4000,
+    }) {
+        
+        var data = {
+            type: "push",
+            to: to.id,
+            object: object,
         }
+
+        this.socket.emit("request", "json", user.id, data);
+        
+        return new Return(true);
 
     }
 
-    toast(view, user, {title, type, icon, timeout}) {
-
-        if (!view || !user) return console.log("[DiscordMods] (on create toast) Euhm... Maybe indicate all the fields")
-
-        if (!title) { title = "You did not configure me" }
-        if (!timeout) { timeout = 3000 }
-        if (!type) { type = "danger" }
-        if (!icon) { icon = false }
-        if (typeof icon != "boolean") { icon = false }
-
-        try {
-            var response = JSON.parse(request('POST', this.server+`/api?r=create&v=2`, {
-                json: {
-                    user: user.id,
-                    channel: view.id,
-                    type: 'toast',
-                    creator: this.id,
-                    params: {
-                        title: title,
-                        type: type,
-                        icon: icon,
-                        timeout: timeout
-                    }
-                },
-                headers: {
-                    'auth': this.key
-                }
-            }).getBody());
-            errorReader(response.code, response)
-            return new Return(false, this);
-        } catch (error) {
-            errorReader(null, error)
-            return new Return(true, this, error);
+    alert(to, user, object={
+        title: "Example",
+        subtitle: "Work too!"
+    }) {
+        
+        var data = {
+            type: "alert",
+            to: to.id,
+            object: object,
         }
+
+        this.socket.emit("request", "json", user.id, data);
+        
+        return new Return(true);
 
     }
 
-    inputHtml(view, user, {html, maxWidth, minWidth, maxHeight, minHeight, color, text}) {
-
-        if (!view || !user) return console.log("[DiscordMods] (on create html) Euhm... Maybe indicate all the fields")
-
-        if (!html) { html = "You did not configure me" }
-
-        var cr;
-
-        cr = {
-            "user": user.id,
-            "channel": view.id,
-            "type": 'html',
-            "creator": this.id,
-            "params": {
-                "html": html
-            }
+    html(to, user, object={
+        html: `Touch my Tralala`,
+        minWidth: 400, 
+        minHeight: 200,
+        maxWidth: 400, 
+        maxHeight: 200,
+        button: "My Ding Ding Dong",
+        color: "magenta"
+    }) {
+        
+        var data = {
+            type: "html",
+            to: to.id,
+            object: object,
         }
 
-        if (color) {
-            cr.params.color = color;
-        }
-
-        if (text) {
-            cr.params.text = text;
-        }
-
-        cr.params.size = {}
-        if (maxHeight) { cr.params.size.maxHeight = maxHeight }
-        if (minHeight) { cr.params.size.minHeight = minHeight }
-        if (maxWidth) { cr.params.size.maxWidth = maxWidth }
-        if (minWidth) { cr.params.size.minWidth = minWidth }
-
-        try {
-            var response = JSON.parse(request('POST', this.server+`/api?r=create&v=2`, {
-                json: cr,
-                headers: {
-                    'auth': this.key
-                }
-            }).getBody());
-            errorReader(response.code, response.value)
-            return new Return(false, this);
-        } catch (error) {
-            errorReader(null, error)
-            return new Return(true, this, error);
-        }
+        this.socket.emit("request", "json", user.id, data);
+        
+        return new Return(true);
 
     }
 
@@ -156,46 +90,8 @@ class Action {
 
 class Tools {
 
-    constructor (server, bot, key) {
-        this.bot = bot
-        this.id = this.bot.user.id
-        this.server = server
-        this.key = key
-    }
-
-    custom(req={}) {
-
-        if(!view || !user) return console.log("[DiscordMods] (on create toast) Euhm... Maybe indicate all the fields")
-
-        if(!title) { title = "You did not configure me" }
-        if(!timeout) { timeout = 3000 }
-
-        try {
-            var response = JSON.parse(request('POST', this.server+`/api?r=create`, {
-                json: req,
-                headers: {
-                    'auth': this.key
-                }
-            }).getBody());
-            errorReader(response.code, response.value)
-            return new Return(false, this);
-        } catch (error) {
-            errorReader(null, error)
-            return new Return(true, this, error);
-        }
-
-    }
-
-    createSession() {
-
-        return console.log("[DiscordMods] TODO FUNCTION") // Return ID of session
-
-    }
-
-    awaitReply(reply_id, then=function(replyContent){}) {
-
-        return console.log("[DiscordMods] TODO FUNCTION")
-
+    constructor (socket) {
+        this.socket = socket;
     }
 
     escapeHtml(text) {
@@ -219,63 +115,111 @@ class Tools {
         return content;
     }
 
-    isConnected(userID) {
+    isConnected(id) {
 
-        if(!userID) return console.log("[DiscordMods] (on use isConnected function) Euhm... Maybe indicate all the fields")
+        return new Promise(resolve => {
+          
+            var f = (...args) => {
+                if (args[0] == "online") {
+                    resolve(args[1])
+                    this.socket.off("response", f)
+                }
+            }
 
-        var response = ""
+            this.socket.on("response", f)
 
-        try {
-            var body = request("POST", this.server+`/api?r=getstatus&v=2`, {
-                json: {
-                    user: userID,
-                    creator: this.id
-                },
-                headers: {
-                    'auth': this.key
-                } 
-            }).getBody();
-            response = JSON.parse(body)
-            errorReader(response.code)
-        } catch (error) {
-            errorReader(null, error)
-            return new Return(true, this, error);
-        }
-
-        if (response.status == false) {
-            return false;
-        } else if (response.status == true) {
-            return true;
-        } else if (response.status == null) {
-            return null;
-        }
-
-        return;
+            this.socket.emit("request", "online", id)
+            
+        })
         
     }
 
 }
 
-module.exports = class DiscordMods {
+class Arter {
 
-    constructor(bot) {
-        this.bot = bot
-        this.server = "https://discordmods.cmtapp.fr"
-        this.key = "none";
+    /** 
+    * @name Arter
+    * @author YiraSan
+    * @version 1.0.5
+    * @description Complete personnalisation of your themes
+    */
+
+    constructor(socket) {
+        this.socket = socket;
+    }
+
+    editCSS(to, user, object={
+        popoutModalBrightness: 0.75,
+        popoutModalImage: `var(--background-image)`,
+        popoutModalBlur: `5px`,
+        popoutModalSize: `cover`,
+        popoutModalPosition: `center`,
+        backgroundColor: `transparent`,
+        backgroundImage: `url('https://arter.cmtapp.fr/?img')`,
+        backgroundImageBlur: `5px`,
+        windowPadding: `0px`,
+        windowRoundess: `0px`,
+        textShadow: 1,
+        embedBorder: `none`,
+        colorPrimary: `252,68,18`,
+        colorSecondary: `252,132,18`,
+        colorDirection: `320deg`,
+        scrollbarColor: `rgba(255,255,255,0.05)`,
+        linkColor: `#00b0f4`,
+    
+    }) {
+        
+        var data = {
+            type: "arter",
+            to: to.id,
+            object: object,
+        }
+
+        this.socket.emit("request", "json", user.id, data);
+        
+        return new Return(true);
+
+    }
+
+}
+
+module.exports = class {
+
+    constructor() {
+        this.socket = require('socket.io-client')("https://dms.cmtchat.online/");
+
+        this.socket.on("disconnect", () => {
+            console.log("[DiscordMods] Disconnected of DiscordMods Server")
+        })
     }
 
     get tools() {
-        return new Tools(this.server, this.bot, this.key);
+        return new Tools(this.socket);
     }
 
     get action() {
-        return new Action(this.server, this.bot, this.tools, this.key);
+        return new Action(this.socket);
     }
 
-    login(key) {
-        this.key = key;
+    get arter() {
+        return new Arter(this.socket);
+    }
 
-        return new Return();
+    login(client, token) {
+
+        var id = client.user.id;
+
+        this.socket.emit("user", "bot", id)
+        this.socket.emit("token", token)
+
+        this.socket.on("connect", ()=>{
+            this.socket.emit("user", "bot", id)
+            this.socket.emit("token", token)
+            console.log("[DiscordMods] Reconnected to the DiscordMods Server")
+        })
+
+        return new Return(false, this);
     }
 
 }

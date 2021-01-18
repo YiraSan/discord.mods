@@ -1,10 +1,10 @@
 {
   "name": "discord.mods",
-  "version": "0.3.20",
-  "description": "There is Forge for Minecraft and there is DiscordMods for Discord",
+  "version": "0.4.1",
+  "description": "Minecraft has his Forge. Discord his DiscordMods.",
   "main": "index.js",
   "dependencies": {
-    "sync-request": "^6.1.0"
+    "socket.io-client": "^3.1.0"
   },
   "devDependencies": {},
   "scripts": {},

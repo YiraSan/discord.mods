@@ -1,4 +1,24 @@
-# 0.3.3
+# 0.4
+
+- All Remaded.
+- All Improved.
+- Now using socket.io 3.1
+- Auto-Reconnecting
+- inputHtml now html.
+- isConnected require now an async await.
+```js
+await DiscordMods.tools.isConnected(Discord.User.id) // Return true or false
+```
+- Arter added.
+- Support french & english
+- Securised Interface (ssl connection)
+
+# 0.3.30 [Not Released, Edit Saved]
+
+- Add Session System
+- Catch/Then/Finnally hotfix
+
+# 0.3.25
 
 - For includes markdown in inputHtml use the tools function : "markdown"
 ```js
